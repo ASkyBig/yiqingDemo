@@ -1,26 +1,264 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios'
+import TotalCondition from "./Components/TotalCondition";
+import styled from "styled-components";
+import HeaderImg from "./Assets/header.jpg"
+
+const ImgWrap = styled.img`
+    width: 500px;
+    height: 200px;
+`
+
+let myChart
+const dataList=[
+    {name:"南海诸岛",confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '北京', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '天津', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '上海',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '重庆',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '河北',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '河南',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '云南',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '辽宁',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '黑龙江',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '湖南', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '安徽',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '山东',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '新疆',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '江苏',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '浙江',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '江西',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '湖北',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '广西',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '甘肃',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '山西',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '内蒙古',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '陕西', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '吉林', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '福建', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '贵州', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '广东',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '青海', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '西藏', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '四川', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '宁夏', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '海南', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '台湾', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '香港', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '澳门', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+]
+
+function Header() {
+    return (
+        <ImgWrap src={HeaderImg} />
+    )
+}
+
+function Loading() {
+    return (
+        <div>loading...</div>
+    )
+}
+
+function DetailCom() {
+    const [ overallArr, setOverallArr ] = useState([])
+    const [ loading, setLoading ] = useState(true)
+
+    useEffect(() => {
+        axios.get('https://lab.isaaclin.cn/nCoV/api/area')
+            .then(res => {
+                console.log('res', res.data.results)
+                const { results } = res.data
+                dataList.forEach(item => {
+                    const itemMatch = results.find(it => it.provinceShortName === item.name)
+                    if (itemMatch) {
+                        item.value = itemMatch.confirmedCount
+                        item.confirmedCount = itemMatch.confirmedCount
+                        item.newAddNum = itemMatch.suspectedCount
+                        item.cureNum = itemMatch.curedCount
+                        item.deadNum = itemMatch.deadCount
+                    }
+                })
+                console.log('dataList', dataList)
+                myChart.setOption({
+                    series : [
+                        {
+                            name: '确诊人数',
+                            type: 'map',
+                            geoIndex: 0,
+                            data: dataList
+                        }
+                    ]
+                })
+                setLoading(false)
+                setOverallArr(res.data.results)
+            })
+    }, [])
+    return (
+      <div style={{ width: '500px'}} >
+          {
+              loading ? <Loading />
+                : <div>
+                    <h1>中国病例</h1>
+                    <ul>
+                        <li>
+                            <span>地区</span>
+                            <span>确诊</span>
+                            <span>治愈</span>
+                            <span>死亡</span>
+                        </li>
+                    </ul>
+                    <div style={{ height: '400px', overflow: 'scroll'}}>
+                        {
+                            overallArr.map(item => {
+                                return (
+                                    item.countryName ==='中国'
+                                        ? <li key={item.provinceName}>
+                                            <span>{item.provinceName}</span>
+                                            <span>{item.confirmedCount}</span>
+                                            <span>{item.curedCount}</span>
+                                            <span>{item.deadCount}</span>
+                                        </li>
+                                        : null
+                                )
+                            })
+                        }
+                    </div>
+
+                  </div>
+          }
+      </div>
+    )
+}
+
+const  option = {
+    tooltip: {
+        formatter:function(params,ticket, callback){
+            return params.seriesName + '<br />' + params.name + '：' + params.data.confirmedCount
+        }//数据格式化
+    },
+    visualMap: {
+        min: 0,
+        max: 1500,
+        left: 'left',
+        top: 'bottom',
+        text: ['高','低'],//取值范围的文字
+        inRange: {
+            color: ['#F5DEB3', '#800000']//取值范围的颜色
+        },
+        show:true//图注
+    },
+    geo: {
+        map: 'china',
+        roam: false,//不开启缩放和平移
+        zoom:1.23,//视角缩放比例
+        label: {
+            normal: {
+                show: true,
+                fontSize:'10',
+                color: 'rgba(0,0,0,0.7)'
+            }
+        },
+        itemStyle: {
+            normal:{
+                borderColor: 'rgba(0, 0, 0, 0.2)'
+            },
+            emphasis:{
+                areaColor: '#F3B329',//鼠标选择区域颜色
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowBlur: 20,
+                borderWidth: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+    },
+    series : [
+        {
+            name: '确诊人数',
+            type: 'map',
+            geoIndex: 0,
+            data: dataList
+        }
+    ]
+};
 
 function App() {
+    console.log('render APP')
+    const [searchVal, setSearchVal] = useState('')
+    const [confirmNum, setConfirmNum] = useState('')
+    const [newAddNum, setNewAddNum] = useState('')
+    const [cureNum, setCureNum] = useState('')
+    const [deadNum, setDeadNum] = useState('')
+    const [showSearch, setShowSearch] = useState(false)
+    const [hasFound, setHasFound] = useState(false)
+
+    useEffect(() => {
+       myChart = window.echarts.init(document.getElementById('map'))
+       myChart.setOption(option)
+    }, [])
+    function reset() {
+        setConfirmNum('')
+        setNewAddNum('')
+        setCureNum('')
+        setDeadNum('')
+    }
+    function handleChange(e) {
+        setShowSearch(false)
+        reset()
+        setSearchVal(e.target.value)
+    }
+
+    function handleKeyDown(e) {
+        if (e.keyCode === 13) {
+            setShowSearch(true)
+            for (let i = 0; i < dataList.length; i++) {
+                if (dataList[i].name == e.target.value) {
+                    setHasFound(true)
+                    setConfirmNum(dataList[i].confirmedCount)
+                    setNewAddNum(dataList[i].newAddNum)
+                    setCureNum(dataList[i].cureNum)
+                    setDeadNum(dataList[i].deadNum)
+                    return
+                }
+            }
+            setHasFound(false)
+        }
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+        <Header />
+        <TotalCondition />
+        <div className="map">
+            <h1>地区分布图</h1>
+            <div id="map" style={{ width: '500px', height: '400px'}}></div>
+        </div>
+        <div>
+            <div style={{ width: '500px'}}>
+                <span>省份搜索：</span>
+                <input placeholder="enter键搜索" value={searchVal} onKeyDown={handleKeyDown} onChange={e => handleChange(e)} />
+            </div>
+
+            {
+                showSearch && <div>
+                                <h2>查询结果</h2>
+                                {
+                                    hasFound
+                                        ?  <div>
+                                                <div>确诊人数：{confirmNum}</div>
+                                                <div>疑似人数：{newAddNum}</div>
+                                                <div>治愈人数：{cureNum}</div>
+                                                <div>死亡人数：{deadNum}</div>
+                                            </div>
+                                        : <div>省份数据错误</div>
+                                }
+                            </div>
+            }
+        </div>
+        <DetailCom />
     </div>
   );
 }
 
 export default App;
+
