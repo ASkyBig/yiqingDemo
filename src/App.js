@@ -1,8 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef, forwardRef, createContext, useContext} from 'react';
 import axios from 'axios'
 import TotalCondition from "./Components/TotalCondition";
+import Nav from './Components/Nav'
 import styled from "styled-components";
 import HeaderImg from "./Assets/header.jpg"
+const Nav1 = forwardRef(Nav)
+
+export const NumContext = createContext(0);
 
 const ImgWrap = styled.img`
     width: 500px;
@@ -53,6 +57,30 @@ function Header() {
         <ImgWrap src={HeaderImg} />
     )
 }
+
+function Nav2Com() {
+    return (
+        <div>nav2 content</div>
+    )
+}
+
+function Nav3Com() {
+    return (
+        <div>nav3 content</div>
+    )
+}
+
+function Nav4Com() {
+    return (
+        <div>nav4 content</div>
+    )
+}
+function Nav5Com() {
+    return (
+        <div>nav5 content</div>
+    )
+}
+
 
 function Loading() {
     return (
@@ -185,6 +213,7 @@ const  option = {
 
 function App() {
     console.log('render APP')
+    const ref = useRef({})
     const [searchVal, setSearchVal] = useState('')
     const [confirmNum, setConfirmNum] = useState('')
     const [newAddNum, setNewAddNum] = useState('')
@@ -192,11 +221,18 @@ function App() {
     const [deadNum, setDeadNum] = useState('')
     const [showSearch, setShowSearch] = useState(false)
     const [hasFound, setHasFound] = useState(false)
+    const [curTabIndex, setCurTabIndex] = useState(0)
+    const [contentStyleObj, setContentStyleObj] = useState({})
 
     useEffect(() => {
        myChart = window.echarts.init(document.getElementById('map'))
        myChart.setOption(option)
     }, [])
+    useEffect(() => {
+        console.log('ref.current.getTabIndex() ===>', ref.current.getTabIndex())
+        setCurTabIndex(ref.current.getTabIndex())
+        setContentStyleObj({display: 'flex', background: 'gray', transform: `translate(-${curTabIndex * 500}px, 0)`})
+    }, [curTabIndex])
     function reset() {
         setConfirmNum('')
         setNewAddNum('')
@@ -204,6 +240,7 @@ function App() {
         setDeadNum('')
     }
     function handleChange(e) {
+        console.log('ref', ref.current.getTabIndex())
         setShowSearch(false)
         reset()
         setSearchVal(e.target.value)
@@ -228,34 +265,55 @@ function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
         <Header />
-        <TotalCondition />
-        <div className="map">
-            <h1>地区分布图</h1>
-            <div id="map" style={{ width: '500px', height: '400px'}}></div>
-        </div>
-        <div>
-            <div style={{ width: '500px'}}>
-                <span>省份搜索：</span>
-                <input placeholder="enter键搜索" value={searchVal} onKeyDown={handleKeyDown} onChange={e => handleChange(e)} />
-            </div>
+        <NumContext.Provider value = {{ curTabIndex, setCurTabIndex}}>
+            <Nav1 ref={ref}/>
+        </NumContext.Provider>
+        <div className="contentWrap">
+            <div className="content" style={contentStyleObj}>
+                <div className="contentItem">
+                    <TotalCondition />
+                    <div className="map">
+                        <h1>地区分布图</h1>
+                        <div id="map" style={{ width: '500px', height: '400px'}}></div>
+                    </div>
+                    <div>
+                        <div style={{ width: '500px'}}>
+                            <span>省份搜索：</span>
+                            <input placeholder="enter键搜索" value={searchVal} onKeyDown={handleKeyDown} onChange={e => handleChange(e)} />
+                        </div>
 
-            {
-                showSearch && <div>
+                        {
+                            showSearch && <div>
                                 <h2>查询结果</h2>
                                 {
                                     hasFound
                                         ?  <div>
-                                                <div>确诊人数：{confirmNum}</div>
-                                                <div>疑似人数：{newAddNum}</div>
-                                                <div>治愈人数：{cureNum}</div>
-                                                <div>死亡人数：{deadNum}</div>
-                                            </div>
+                                            <div>确诊人数：{confirmNum}</div>
+                                            <div>疑似人数：{newAddNum}</div>
+                                            <div>治愈人数：{cureNum}</div>
+                                            <div>死亡人数：{deadNum}</div>
+                                        </div>
                                         : <div>省份数据错误</div>
                                 }
                             </div>
-            }
+                        }
+                    </div>
+                    <DetailCom />
+                </div>
+                <div className="contentItem">
+                    <Nav2Com></Nav2Com>
+                </div>
+                <div className="contentItem">
+                    <Nav3Com></Nav3Com>
+                </div>
+                <div className="contentItem">
+                    <Nav4Com></Nav4Com>
+                </div>
+                <div className="contentItem">
+                    <Nav5Com></Nav5Com>
+                </div>
+            </div>
         </div>
-        <DetailCom />
     </div>
   );
 }

@@ -1,0 +1,51 @@
+.nav {
+    position: relative;
+    width: 500px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-item {
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.nav-item.active {
+    font-weight: 600;
+}
+
+.nav .bar {
+    position: absolute;
+    width: 60px;
+    height: 5px;
+    background: orangered;
+    bottom: 0;
+    transition: .5s ease;
+}
+
+.contentWrap {
+    position: relative;
+    width: 500px;
+    height: calc(100vh - 250px);
+    overflow: hidden;
+}
+.content {
+    position: absolute;
+    width: 2500px;
+    display: flex;
+    left: 0;
+    transition: .5s ease;
+    overflow: hidden;
+}
+.contentItem {
+    width: 500px;
+    height: calc(100vh - 250px);
+    background: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}

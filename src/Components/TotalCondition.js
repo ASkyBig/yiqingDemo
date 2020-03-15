@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const TotalWrap = styled.div`
-    width: 500px;
     height: 400px;
     box-shadow: 0 0.08rem 0.266667rem 0 rgba(194, 200, 219, .3);
     border-radius: 10px;
@@ -44,7 +43,7 @@ const TextThree = styled.div`
     font-size: 24px;
 `
 function ItemInfo(props) {
-    console.log('props', props)
+    // console.log('props', props)
     const { count = 0, compareNum, desc, color} = props.info
     return (
         <ItemWrap>
