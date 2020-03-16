@@ -12,6 +12,7 @@
     font-size: 20px;
     text-align: center;
     line-height: 50px;
+    cursor:pointer;
 }
 
 .nav-item.active {
@@ -25,6 +26,7 @@
     background: orangered;
     bottom: 0;
     transition: .5s ease;
+
 }
 
 .contentWrap {
