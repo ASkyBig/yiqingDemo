@@ -4,7 +4,10 @@ import TotalCondition from "./Components/TotalCondition";
 import Nav from './Components/Nav'
 import styled from "styled-components";
 import HeaderImg from "./Assets/header.jpg"
-import SwipeableViews from 'react-swipeable-views';
+import SwipeableViews from 'react-swipeable-views'
+import { autoPlay } from 'react-swipeable-views-utils';
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const Nav1 = forwardRef(Nav)
 
@@ -17,17 +20,21 @@ const ImgWrap = styled.img`
 
 const styles = {
     slide: {
-        padding: 15,
+        // padding: 15,
+        // height: 400,
         minHeight: 100,
         color: '#fff',
     },
     slide1: {
+        height: 200,
         background: '#FEA900',
     },
     slide2: {
+        height: 200,
         background: '#B3DC4A',
     },
     slide3: {
+        height: 200,
         background: '#6AC0FF',
     },
 };
@@ -285,17 +292,17 @@ function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
         <Header />
-        <SwipeableViews>
+        <AutoPlaySwipeableViews style={{width:'500px', height:'200px', overflow: 'hidden'}} autoplay={true} interval={2000}>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
-                slide n°1
+                <img src={HeaderImg} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide2)}>
-                slide n°2
+                图片2
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide3)}>
-                slide n°3
+                图片3
             </div>
-        </SwipeableViews>
+        </AutoPlaySwipeableViews>
         <NumContext.Provider value = {{ curTabIndex, setCurTabIndex}}>
             <Nav1 ref={ref}/>
         </NumContext.Provider>
