@@ -4,6 +4,8 @@ import TotalCondition from "./Components/TotalCondition";
 import Nav from './Components/Nav'
 import styled from "styled-components";
 import HeaderImg from "./Assets/header.jpg"
+import SwipeableViews from 'react-swipeable-views';
+
 const Nav1 = forwardRef(Nav)
 
 export const NumContext = createContext(0);
@@ -12,6 +14,24 @@ const ImgWrap = styled.img`
     width: 500px;
     height: 200px;
 `
+
+const styles = {
+    slide: {
+        padding: 15,
+        minHeight: 100,
+        color: '#fff',
+    },
+    slide1: {
+        background: '#FEA900',
+    },
+    slide2: {
+        background: '#B3DC4A',
+    },
+    slide3: {
+        background: '#6AC0FF',
+    },
+};
+
 
 let myChart
 const dataList=[
@@ -265,6 +285,17 @@ function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
         <Header />
+        <SwipeableViews>
+            <div style={Object.assign({}, styles.slide, styles.slide1)}>
+                slide n°1
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide2)}>
+                slide n°2
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide3)}>
+                slide n°3
+            </div>
+        </SwipeableViews>
         <NumContext.Provider value = {{ curTabIndex, setCurTabIndex}}>
             <Nav1 ref={ref}/>
         </NumContext.Provider>

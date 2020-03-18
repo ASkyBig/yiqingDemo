@@ -39,7 +39,7 @@ export default function Nav(props, ref) {
     const [tabIndex, setTabIndex] = useState(0)
     const [styleObj, setStyleObj] = useState({left: '20px'})
     useImperativeHandle(ref, () => ({
-            getTabIndex: () => tabIndex
+        getTabIndex: () => tabIndex
         })
     )
     return (
