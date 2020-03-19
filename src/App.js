@@ -297,10 +297,10 @@ function App() {
                 <img src={HeaderImg} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide2)}>
-                图片2
+                <img src={HeaderImg} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide3)}>
-                图片3
+                <img src={HeaderImg} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
             </div>
         </AutoPlaySwipeableViews>
         <NumContext.Provider value = {{ curTabIndex, setCurTabIndex}}>
