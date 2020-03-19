@@ -4,6 +4,9 @@ import TotalCondition from "./Components/TotalCondition";
 import Nav from './Components/Nav'
 import styled from "styled-components";
 import HeaderImg from "./Assets/header.jpg"
+import Tab1 from './Assets/tab1.jpeg'
+import Tab2 from './Assets/tab2.jpeg'
+import Tab3 from './Assets/tab3.jpeg'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils';
 
@@ -294,13 +297,13 @@ function App() {
         <Header />
         <AutoPlaySwipeableViews style={{width:'500px', height:'200px', overflow: 'hidden'}} autoplay={true} interval={2000}>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
-                <img src={HeaderImg} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
+                <img src={Tab1} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide2)}>
-                <img src={HeaderImg} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
+                <img src={Tab2} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide3)}>
-                <img src={HeaderImg} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
+                <img src={Tab3} style={{ objectFit: 'fill', width: '500px', height: '200px'}}/>
             </div>
         </AutoPlaySwipeableViews>
         <NumContext.Provider value = {{ curTabIndex, setCurTabIndex}}>
