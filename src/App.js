@@ -29,23 +29,17 @@ const LoadingBox = styled.div`
   justify-content: center;
   align-items: center;
 `
-
 const LoadingSvgBox = styled.img`
   width: 100px;
   height: 100px;
   animation: 2s ${ImgRotate} infinite linear;
 `
-
-
 const Nav1 = forwardRef(Nav)
-
 export const NumContext = createContext(0);
-
 const ImgWrap = styled.img`
     width: 500px;
     height: 200px;
 `
-
 const styles = {
     slide: {
         // padding: 15,

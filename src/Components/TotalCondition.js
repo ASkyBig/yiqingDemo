@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import axios from "axios";
+import Axios from '../lib/axios'
 
 const TotalWrap = styled.div`
     height: 400px;
@@ -61,7 +61,7 @@ function ItemInfo(props) {
 export default function TotalCondition() {
     const [dataList, setDataList] = useState([])
     useEffect(() => {
-        axios.get('https://lab.isaaclin.cn/nCoV/api/overall')
+        Axios.get('https://lab.isaaclin.cn/nCoV/api/overall')
             .then(res => {
                 if (res.data.success) {
                     const data = res.data.results[0]
@@ -74,7 +74,23 @@ export default function TotalCondition() {
                     newData.push({count: data.deadCount, compareNum: data.deadIncr, desc: '累计死亡', color: '#00193c'})
                     setDataList(newData)
                 }
-            })
+            }).catch(error => {
+               console.log("请求超时了啊")
+            //超时之后在这里捕抓错误信息.
+            if (error.response) {
+                console.log('error.response')
+                console.log(error.response);
+            } else if (error.request) {
+                console.log(error.request)
+                console.log('error.request')
+                if(error.request.readyState == 4 && error.request.status == 0){
+                    //我在这里重新请求
+                }
+            } else {
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
     }, [])
 
     return (
