@@ -7,6 +7,7 @@ import HeaderImg from "./Assets/header.jpg"
 import Tab1 from './Assets/tab1.jpeg'
 import Tab2 from './Assets/tab2.jpeg'
 import Tab3 from './Assets/tab3.jpeg'
+import LoadingSvg from './Assets/loading.svg'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils';
 
@@ -21,10 +22,17 @@ const ImgRotate = keyframes`
     transform: rotate(360deg);
   }
 `
+const LoadingBox = styled.div`
+  width: 500px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 const LoadingSvgBox = styled.img`
-  width: 14px;
-  height: 14px;
+  width: 100px;
+  height: 100px;
   animation: 2s ${ImgRotate} infinite linear;
 `
 
@@ -131,7 +139,10 @@ function Nav5Com() {
 
 function Loading() {
     return (
-        <div>loading...</div>
+        <LoadingBox>
+            <div>Loading...</div>
+            < LoadingSvgBox src={LoadingSvg} />
+        </LoadingBox>
     )
 }
 
