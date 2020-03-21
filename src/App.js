@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef, forwardRef, createContext, useContex
 import axios from 'axios'
 import TotalCondition from "./Components/TotalCondition";
 import Nav from './Components/Nav'
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components"
 import HeaderImg from "./Assets/header.jpg"
 import Tab1 from './Assets/tab1.jpeg'
 import Tab2 from './Assets/tab2.jpeg'
@@ -11,6 +11,23 @@ import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+const ImgRotate = keyframes`
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+`
+
+const LoadingSvgBox = styled.img`
+  width: 14px;
+  height: 14px;
+  animation: 2s ${ImgRotate} infinite linear;
+`
+
 
 const Nav1 = forwardRef(Nav)
 
@@ -275,7 +292,6 @@ function App() {
         reset()
         setSearchVal(e.target.value)
     }
-
     function handleKeyDown(e) {
         if (e.keyCode === 13) {
             setShowSearch(true)
