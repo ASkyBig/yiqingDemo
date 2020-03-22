@@ -9,6 +9,4 @@ git colne https://github.com/ASkyBig/yiqingDemo.git
 npm i
 npm run start
 ```
-<img src="https://askybig.github.io/ImageStore/yq1.png" height="600" width="500">
-<img src="https://askybig.github.io/ImageStore/yq2.jpg" height="600" width="500">
-<img src="https://askybig.github.io/ImageStore/yq3.jpg" height="600" width="500">
+<img src="https://askybig.github.io/ImageStore/yiqing.gif" height="600" width="500">
