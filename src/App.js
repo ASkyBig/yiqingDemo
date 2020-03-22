@@ -64,8 +64,8 @@ const styles = {
 
 let myChart
 const dataList=[
-    {name:"南海诸岛",confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
-    {name: '北京', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name:"南海诸岛",confirmedCount:1, newAddNum: 0, cureNum: 0, deadNum: 0},
+    {name: '北京', confirmedCount:1, newAddNum: 0, cureNum: 0, deadNum: 0},
     {name: '天津', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
     {name: '上海',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
     {name: '重庆',confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
@@ -101,6 +101,254 @@ const dataList=[
     {name: '澳门', confirmedCount:0, newAddNum: 0, cureNum: 0, deadNum: 0},
 ]
 
+const notRealOverallArr = [
+    {
+        "provinceName": "南海诸岛",
+        "confirmedCount": 1,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "北京",
+        "confirmedCount": 1,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "天津",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "上海",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "重庆",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "河北",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "河南",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "云南",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "辽宁",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "黑龙江",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "湖南",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "安徽",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "山东",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "新疆",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "江苏",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "浙江",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "江西",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "湖北",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "广西",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "甘肃",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "山西",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "内蒙古",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "陕西",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "吉林",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "福建",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "贵州",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "广东",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "青海",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "西藏",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "四川",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "宁夏",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "海南",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "台湾",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "香港",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    },
+    {
+        "provinceName": "澳门",
+        "confirmedCount": 0,
+        "curedCount": 0,
+        "deadCount": 0,
+        "countryName": "中国"
+    }
+]
+const newDataList = [].concat(dataList)
 function Header() {
     return (
         <ImgWrap src={HeaderImg} />
@@ -159,7 +407,6 @@ function DetailCom() {
                         item.deadNum = itemMatch.deadCount
                     }
                 })
-                console.log('dataList', dataList)
                 myChart.setOption({
                     series : [
                         {
@@ -172,14 +419,36 @@ function DetailCom() {
                 })
                 setLoading(false)
                 setOverallArr(res.data.results)
-            }).catch(err => err.message)
+            }).catch(err => {
+                console.log('err', err)
+                dataList.forEach(item => {
+                        item.value = 1
+                        item.confirmedCount = 1
+                        item.newAddNum = 2
+                        item.cureNum = 3
+                        item.deadNum = 4
+                })
+                myChart.setOption({
+                    series : [
+                        {
+                            name: '确诊人数',
+                            type: 'map',
+                            geoIndex: 0,
+                            data: dataList
+                        }
+                    ]
+                })
+            console.log('notreal', notRealOverallArr)
+                setOverallArr(notRealOverallArr)
+                setLoading(false)
+        })
     }, [])
     return (
       <div style={{ width: '500px'}} >
           {
               loading ? <Loading />
                 : <div>
-                    <h1>中国病例</h1>
+                    <h1>中国病例:</h1>
                     <ul>
                         <li>
                             <span>地区</span>

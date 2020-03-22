@@ -5,7 +5,7 @@ const CSRF_KEY = '_csrfToken'
 
 const instance = axios.create()
 
-axios.defaults.timeout =  2000;
+axios.defaults.timeout =  10;
 
 export function getCsrfToken () {
     const cookie = document.cookie
