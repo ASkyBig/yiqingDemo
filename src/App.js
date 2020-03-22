@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef, forwardRef, createContext, useContext} from 'react';
-import axios from 'axios'
+import Axios from './lib/axios'
 import TotalCondition from "./Components/TotalCondition";
 import Nav from './Components/Nav'
 import styled, { keyframes } from "styled-components"
@@ -145,7 +145,7 @@ function DetailCom() {
     const [ loading, setLoading ] = useState(true)
 
     useEffect(() => {
-        axios.get('https://lab.isaaclin.cn/nCoV/api/area')
+        Axios.$get('https://lab.isaaclin.cn/nCoV/api/area')
             .then(res => {
                 console.log('res', res.data.results)
                 const { results } = res.data
@@ -172,7 +172,7 @@ function DetailCom() {
                 })
                 setLoading(false)
                 setOverallArr(res.data.results)
-            })
+            }).catch(err => err.message)
     }, [])
     return (
       <div style={{ width: '500px'}} >

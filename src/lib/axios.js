@@ -5,7 +5,7 @@ const CSRF_KEY = '_csrfToken'
 
 const instance = axios.create()
 
-axios.defaults.timeout =  3000;
+axios.defaults.timeout =  2000;
 
 export function getCsrfToken () {
     const cookie = document.cookie
@@ -28,7 +28,8 @@ function parseCookie (cookie) {
 instance.interceptors.request.use(config => {
     const csrfToken = getCsrfToken()
     const devParams =
-        process.env.NODE_ENV === 'development' ? { nocsrf: 1, nologin: 1 } : {}
+        // process.env.NODE_ENV === 'development' ? { nocsrf: 1, nologin: 1 } : {}
+        process.env.NODE_ENV === 'development' ? {} : {}
     config.params = Object.assign(devParams, csrfToken, config.params || {})
     return config
 })

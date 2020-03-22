@@ -50,18 +50,19 @@ function ItemInfo(props) {
         </ItemWrap>
     )
 }
-// const dataList = [
-//     {count: 11, compareNum: -1, desc: '现存确诊', color: '#f74c30'},
-//     {count: 2, compareNum: -20, desc: '现存重症', color: '#b5212b;'},
-//     {count: 3, compareNum: 100, desc: '境外输入', color: '#fe9317;'},
-//     {count: 4, compareNum: 666, desc: '累计确诊', color: '#e10000;;'},
-//     {count: 5, compareNum: 666, desc: '累计治愈', color: '#15a582;'},
-//     {count: 6, compareNum: 0, desc: '累计死亡', color: '#00193c;'}
-// ]
+const notRealDataList = [
+    {count: 1, compareNum: -1, desc: '现存确诊', color: '#f74c30'},
+    {count: 2, compareNum: -20, desc: '现存重症', color: '#b5212b;'},
+    {count: 3, compareNum: 100, desc: '境外输入', color: '#fe9317;'},
+    {count: 4, compareNum: 666, desc: '累计确诊', color: '#e10000;;'},
+    {count: 5, compareNum: 666, desc: '累计治愈', color: '#15a582;'},
+    {count: 6, compareNum: 0, desc: '累计死亡', color: '#00193c;'}
+]
 export default function TotalCondition() {
     const [dataList, setDataList] = useState([])
+    const [isReal, setIsReal] = useState(true)
     useEffect(() => {
-        Axios.get('https://lab.isaaclin.cn/nCoV/api/overall')
+        Axios.$get('https://lab.isaaclin.cn/nCoV/api/overall')
             .then(res => {
                 if (res.data.success) {
                     const data = res.data.results[0]
@@ -72,10 +73,13 @@ export default function TotalCondition() {
                     newData.push({count: data.confirmedCount, compareNum: data.confirmedIncr, desc: '累计确诊', color: '#e10000'})
                     newData.push({count: data.curedCount, compareNum: data.curedIncr, desc: '累计治愈', color: '#15a582'})
                     newData.push({count: data.deadCount, compareNum: data.deadIncr, desc: '累计死亡', color: '#00193c'})
+                    setIsReal(true)
                     setDataList(newData)
                 }
             }).catch(error => {
                console.log("请求超时了啊")
+            setDataList(notRealDataList)
+            setIsReal(false)
             //超时之后在这里捕抓错误信息.
             if (error.response) {
                 console.log('error.response')
@@ -96,7 +100,7 @@ export default function TotalCondition() {
     return (
         <TotalWrap>
             <TitleWrap>全国疫情</TitleWrap>
-            <div style={{color: 'lightgray', fontSize: '12px', marginTop: '-50px', marginBottom: '20px'}}>数据来源：丁香园</div>
+            <div style={{color: 'lightgray', fontSize: '12px', marginTop: '-50px', marginBottom: '20px'}}>数据来源：{isReal ? '丁香园' : '非真实数据'}</div>
             <DetailWrap>
                 {
                     dataList.map(item => <ItemInfo key={item.desc} info={item}/>)
